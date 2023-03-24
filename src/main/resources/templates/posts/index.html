@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="partial/partials :: head">
+    <title>Show all Posts</title>
+</head>
+<body>
+<nav th:insert="partial/partials :: navbar"></nav>
+
+<h2>Show all Posts</h2>
+
+<ul th:each="post : ${posts}">
+    <li th:text="${post.title}">Insert post title here</li>
+</ul>
+
+
+<footer th:insert="partial/partials :: footer"></footer>
+</body>
+</html>
