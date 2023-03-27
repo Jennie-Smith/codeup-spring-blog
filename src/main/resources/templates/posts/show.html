@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="partial/partials :: head">
     <title>Show one Post</title>
 </head>
 <body>
 <nav th:insert="partial/partials :: navbar"></nav>
 
-<h1>Post: <span th:text="${post.id}">Post Id</span></h1>
-<h1 th:text="${post.title}">Insert post title here</h1></a>
-<h1 th:text="${post.body}">Insert post body here</h1>
-
+<h1 th:text="${post.title}">Insert post title here</h1>
+<h1 th:text="${post.id}">Insert post title here</h1>
+<h1 th:text="${post.body}">Insert post title here</h1>
 
 
 <footer th:insert="partial/partials :: footer"></footer>

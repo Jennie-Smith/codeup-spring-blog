@@ -16,7 +16,7 @@ public class Post {
     @Column(length=150, nullable = false)
     private String title;
 
-    @Column(length=255, nullable = false)
+    @Column(length=254, nullable = false)
     private String body;
 
 }

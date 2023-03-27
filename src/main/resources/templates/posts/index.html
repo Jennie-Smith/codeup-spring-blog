@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="partial/partials :: head">
     <title>Show all Posts</title>
 </head>
 <body>
 <nav th:insert="partial/partials :: navbar"></nav>
+<div class="container">
+    <h2>Show all Posts</h2>
 
-<h2>Show all Posts</h2>
-
-<ul th:each="post : ${posts}">
-    <a href="posts/1"><li th:text="${post.title}">Insert post title here</li></a>
-    <li th:text="${post.body}">Insert post body here</li>
-</ul>
+    <div th:each="post : ${posts}" class="col-md-6">
+        <a th:href="@{'posts/' + ${post.id}}"><h4 th:text="${post.title}" class="list-group-item borderless">Insert post title here</h4></a>
+        <p th:text="${post.body}" class="list-group-item">Insert post body here</p>
+    </div>
+</div>
 
 
 <footer th:insert="partial/partials :: footer"></footer>

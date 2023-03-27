@@ -18,19 +18,16 @@ public class PostController {
     @GetMapping
     public String all(Model model){
         List<Post> posts = postDao.findAll();
-        posts.add(new Post(1,"Valentine's Day", "Love is in the air!"));
-        posts.add(new Post(2,"Halloween", "Very spooky day"));
         model.addAttribute("posts", posts);
         return "posts/index";
+
     }
 
     @GetMapping("/{id}")
-    public String viewPosts(@PathVariable long id) {
+    public String viewPosts(@PathVariable long id, Model model) {
         Post post = postDao.findById(id).get();
-        String newPost = post.getTitle() + post.getBody();
-        post.setTitle(newPost);
-        postDao.save(post);
         System.out.println(post);
+        model.addAttribute("post", post);
         return "posts/show";
     }
 
@@ -40,12 +37,13 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public String createPost(@PathVariable String title, @PathVariable String body) {
+    public String createPost(@RequestParam String title, @RequestParam String body) {
         Post post = new Post();
         post.setTitle(title);
-        post.setTitle(body);
+        post.setBody(body);
+        System.out.println(post);
         postDao.save(post);
-        return "posts/index";
+        return "redirect:/posts";
     }
 
     @Override

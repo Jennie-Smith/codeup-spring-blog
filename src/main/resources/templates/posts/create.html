@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="partial/partials :: head">
     <title>Create</title>
 </head>
 <body>
 <nav th:insert="partial/partials :: navbar"></nav>
-<form>
+<form action="/posts/create" method="post">
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input type="title" class="form-control" name="title" id="title">
@@ -14,7 +14,7 @@
         <label for="body" class="form-label">body</label>
         <input type="body" class="form-control" name="body" id="body">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <input type="submit" class="btn btn-primary btn-block">
 </form>
 
 
