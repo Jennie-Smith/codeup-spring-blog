@@ -9,7 +9,8 @@
 <h2>Show all Posts</h2>
 
 <ul th:each="post : ${posts}">
-    <li th:text="${post.title}">Insert post title here</li>
+    <a href="posts/1"><li th:text="${post.title}">Insert post title here</li></a>
+    <li th:text="${post.body}">Insert post body here</li>
 </ul>
 
 

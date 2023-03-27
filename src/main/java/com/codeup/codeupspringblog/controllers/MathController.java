@@ -4,8 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class MathController {
+
 
     @GetMapping("/roll-dice")
     public String showRollDicePage(){
@@ -25,6 +29,15 @@ public class MathController {
         model.addAttribute("answer", diceRoll);
         model.addAttribute("guess", guess);
         return "roll-dice-guess";
+
+//        bonus
+//        List<Integer> rolls = new ArrayList<>();
+//        for (int i = 0; i < 6; i++) {
+//            rolls.add(random.nextInt(6) + 1);
+//
+//        }
+//        model.addAttribute("rolls", rolls);
+//        return  "roll-dice-guess";
     }
 
 //    @GetMapping("/roll-dice/n")

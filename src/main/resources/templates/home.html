@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
+<head th:insert="partial/partials :: head">
     <title>Home</title>
 </head >
 <body>
-<!--<nav th:replace="../partial :: navbar"></nav>-->
-<!--<h1>This is the home page</h1>-->
+<nav th:insert="partial/partials :: navbar"></nav>
 
-<!--<h1>Hello, <span th:text="${name}">World</span>!</h1>-->
+<h1>This is the home page</h1>
 
-<!--<p>Person's name is <span th:text="${personName}">Insert person name here</span></p>-->
-<!--&lt;!&ndash;/home/name?age=(a number)&ndash;&gt;-->
-<!--<p>Person's age is <span th:text="${personAge}">Insert person name here</span></p>-->
+<h1>Hello, <span th:text="${name}">World</span>!</h1>
+
+<p>Person's name is <span th:text="${personName}">Insert person name here</span></p>
+<!--/home/name?age=(a number)-->
+<p>Person's age is <span th:text="${personAge}">Insert person name here</span></p>
 
 </body>
 </html>
