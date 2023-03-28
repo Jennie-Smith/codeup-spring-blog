@@ -5,7 +5,8 @@
 </head>
 <body>
 <nav th:insert="partial/partials :: navbar"></nav>
-
+<h1 th:text="${post.user.getUsername()}">Insert User username here</h1>
+<h1 th:text="${post.user.getEmail()}">Insert User email here</h1>
 <h1 th:text="${post.title}">Insert post title here</h1>
 <h1 th:text="${post.id}">Insert post title here</h1>
 <h1 th:text="${post.body}">Insert post title here</h1>

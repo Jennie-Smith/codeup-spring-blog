@@ -19,4 +19,7 @@ public class Post {
     @Column(length=254, nullable = false)
     private String body;
 
+    @ManyToOne
+    private User user;
+
 }
