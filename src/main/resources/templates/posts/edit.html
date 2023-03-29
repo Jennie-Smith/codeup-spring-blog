@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="partial/partials :: head">
+  <title>Edit Posts</title>
+</head>
+<body>
+<nav th:insert="partial/partials :: navbar"></nav>
+<h1>Edit Posts</h1>
+<form action="/posts/edit" method="post" th:object="${post}">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" name="title" id="title" th:field="*{title}">
+  </div>
+  <div class="mb-3">
+    <label for="body" class="form-label">body</label>
+    <input type="text" class="form-control" name="body" id="body" th:field="*{body}">
+  </div>
+  <input type="hidden" th:field="*{id}">
+  <input type="submit" class="btn btn-primary btn-block">
+</form>
+
+
+<footer th:insert="partial/partials :: footer"></footer>
+</body>
+</html>
