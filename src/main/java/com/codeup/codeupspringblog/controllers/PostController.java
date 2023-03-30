@@ -4,6 +4,7 @@ import com.codeup.codeupspringblog.repositories.Post;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.User;
 import com.codeup.codeupspringblog.repositories.UserRepository;
+import com.codeup.codeupspringblog.services.EmailService;
 import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class PostController {
     private final PostRepository postDao;
     @Autowired
     private final UserRepository userDao;
+
+    @Autowired
+    private final EmailService emailService;
     @GetMapping
     public String all(Model model){
         List<Post> posts = postDao.findAll();
@@ -44,12 +48,14 @@ public class PostController {
         return "posts/create";
     }
 
+
     @PostMapping("/create")
     public String createPost(@ModelAttribute Post post) {
         User user = userDao.findById(1L).get();
         post.setUser(user);
         System.out.println(post);
         postDao.save(post);
+        emailService.prepareAndSend(post, "A post has been created: " + post.getTitle(), post.toString());
         return "redirect:/posts";
     }
 
