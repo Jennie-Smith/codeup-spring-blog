@@ -1,4 +1,5 @@
-package com.codeup.codeupspringblog.repositories;
+package com.codeup.codeupspringblog.models;
+import com.codeup.codeupspringblog.repositories.Post;
 import jakarta.persistence.*;
 import lombok. *;
 
@@ -28,5 +29,12 @@ public class User {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     @ToString.Exclude
     private List<Post> posts;
+
+    public User(User copy) {
+        id = copy.id;
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
 
 }

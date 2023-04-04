@@ -1,4 +1,5 @@
 package com.codeup.codeupspringblog.repositories;
+import com.codeup.codeupspringblog.models.User;
 import jakarta.persistence.*;
 import lombok. *;
 @Setter

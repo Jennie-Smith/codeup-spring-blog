@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:insert="partial/partials :: head">
     <title>Create</title>
 </head>
@@ -15,9 +15,10 @@
         <label for="body" class="form-label">body</label>
         <input type="body" class="form-control" name="body" id="body" th:field="${body}">
     </div>
+    <input type="hidden" id="id" class="field" th:field="*{id}"/>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <input type="submit" class="btn btn-primary btn-block">
 </form>
-
 
 <footer th:insert="partial/partials :: footer"></footer>
 </body>
