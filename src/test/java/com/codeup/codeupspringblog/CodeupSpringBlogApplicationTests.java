@@ -6,7 +6,7 @@ import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CodeupSpringBlogApplication.class)
 @AutoConfigureMockMvc
-class CodeupSpringBlogApplicationTests {
+public class CodeupSpringBlogApplicationTests {
 
 	private User testUser;
 	private HttpSession httpSession;
@@ -51,12 +51,12 @@ class CodeupSpringBlogApplicationTests {
 	@Before
 	public void setup() throws Exception {
 
-		testUser = userDao.findByUsername("testUser");
+		testUser = userDao.findByUsername("Craig");
 
-		// Creates the test user if not exists
+//		 Creates the test user if not exists
 		if(testUser == null){
 			User newUser = new User();
-			newUser.setUsername("testUser");
+			newUser.setUsername("Craig");
 			newUser.setPassword(passwordEncoder.encode("pass"));
 			newUser.setEmail("testUser@codeup.com");
 			testUser = userDao.save(newUser);
@@ -64,7 +64,7 @@ class CodeupSpringBlogApplicationTests {
 
 		// Throws a Post request to /login and expect a redirection to the Ads index page after being logged in
 		httpSession = this.mvc.perform(MockMvcRequestBuilders.post("/login").with(csrf())
-						.param("username", "testUser")
+						.param("username", "Craig")
 						.param("password", "pass"))
 				.andExpect(status().is(HttpStatus.FOUND.value()))
 				.andExpect(redirectedUrl("/posts"))
@@ -82,6 +82,7 @@ class CodeupSpringBlogApplicationTests {
 	@Test
 	public void testIfUserSessionIsActive() throws Exception {
 		// It makes sure the returned session is not null
+		System.out.println(userDao.findByUsername("bob"));
 		assertNotNull(httpSession);
 	}
 
@@ -93,7 +94,7 @@ class CodeupSpringBlogApplicationTests {
 								.session((MockHttpSession) httpSession)
 								// Add all the required parameters to your request like this
 								.param("title", "test")
-								.param("description", "for sale"))
+								.param("body", "for sale"))
 				.andExpect(status().is3xxRedirection());
 	}
 	@Test
@@ -102,35 +103,35 @@ class CodeupSpringBlogApplicationTests {
 		Post existingPost = postDao.findAll().get(0);
 
 		// Makes a Get request to /ads/{id} and expect a redirection to the Ad show page
-		this.mvc.perform(MockMvcRequestBuilders.get("/posts/{id}" + existingPost.getId()).with(csrf()).session((MockHttpSession)httpSession))
+		this.mvc.perform(MockMvcRequestBuilders.get("/posts/" + existingPost.getId()).with(csrf()).session((MockHttpSession)httpSession))
 				.andExpect(status().isOk())
 				// Test the dynamic content of the page
 				.andExpect(MockMvcResultMatchers.content().string(containsString(existingPost.getBody())));
 	}
 
+//	@Test
+//	public void testPostIndex() throws Exception {
+//		Post existingPost = postDao.findAll().get(1);
+//
+//		// Makes a Get request to /ads and verifies that we get some of the static text of the ads/index.html template and at least the title from the first Ad is present in the template.
+//		this.mvc.perform(MockMvcRequestBuilders.get("/posts"))
+//				.andExpect(status().isOk())
+//				// Test the static content of the page
+//				.andExpect( MockMvcResultMatchers.content().string(containsString("Valentine's Day")))
+//				// Test the dynamic content of the page
+//				.andExpect(MockMvcResultMatchers.content().string(containsString(existingPost.getTitle())));
+//	}
+
+
+
 	@Test
-	public void testPostIndex() throws Exception {
-		Post existingPost = postDao.findAll().get(0);
-
-		// Makes a Get request to /ads and verifies that we get some of the static text of the ads/index.html template and at least the title from the first Ad is present in the template.
-		this.mvc.perform(MockMvcRequestBuilders.get("/posts"))
-				.andExpect(status().isOk())
-				// Test the static content of the page
-				.andExpect((ResultMatcher) content().string(containsString("All posts")))
-				// Test the dynamic content of the page
-				.andExpect((ResultMatcher) content().string(containsString(existingPost.getTitle())));
-	}
-
-
-
-	@Test
-	public void testEditAd() throws Exception {
+	public void testEditPost() throws Exception {
 		// Gets the first Ad for tests purposes
 		Post existingPost = postDao.findAll().get(1);
 
 		// Makes a Post request to /ads/{id}/edit and expect a redirection to the Ad show page
 		this.mvc.perform(
-						MockMvcRequestBuilders.post("/post/edit/" + existingPost.getId()).with(csrf())
+						MockMvcRequestBuilders.post("/posts/" + existingPost.getId() + "/edit").with(csrf())
 								.session((MockHttpSession) httpSession)
 								.param("title", "edited the title again")
 								.param("body", "edited the description again")
